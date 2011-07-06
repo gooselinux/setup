@@ -1,0 +1,35 @@
+diff -urNp setup-2.8.14-orig/uidgid setup-2.8.14/uidgid
+--- setup-2.8.14-orig/uidgid	2010-01-12 14:28:22.000000000 +0100
++++ setup-2.8.14/uidgid	2010-06-15 09:42:37.845047697 +0200
+@@ -77,14 +77,14 @@ pegasus	66	65	/var/lib/Pegasus		/sbin/no
+ webalizer	67	67	/var/www/html/usage		/sbin/nologin	webalizer
+ haldaemon	68	68	/		/sbin/nologin	hal
+ vcsa	69	69	-		/sbin/nologin	dev,MAKEDEV
+-avahi	70	70	/		/sbin/nologin	avahi
++avahi	70	70	/var/run/avahi-daemon		/sbin/nologin	avahi
+ realtime	-	71	-		-	-
+ tcpdump	72	72	/		/sbin/nologin	tcpdump
+ privoxy	73	73	/etc/privoxy		/bin/bash	privoxy
+ sshd	74	74	/var/empty/sshd		/sbin/nologin	openssh-server
+ radvd	75	75	/		/bin/false	radvd
+ cyrus	76	(12)	/var/imap		/bin/bash	cyrus-imapd
+-shadow	-	76	-		-	cyrus-imapd
++saslauth	-	76	-		-	cyrus-imapd
+ arpwatch	77	77	/var/lib/arpwatch		/sbin/nologin	arpwatch
+ fax	78	78	/var/spool/fax		/sbin/nologin	mgetty
+ nocpulse	79	79	/etc/sysconfig/nocpulse		/bin/bash	nocpulse
+@@ -113,7 +113,14 @@ qemu	107	107	/		/sbin/nologin	libvirt
+ ovirt	108	108	/		/sbin/nologin	libvirt
+ saned	111	111	/		/sbin/nologin	sane-backends
+ vhostmd	112	112	/usr/share/vhostmd		/sbin/nologin	vhostmd
++usbmuxd	113	113	/		/sbin/nologin	usbmuxd
+ bacula	133	133	/var/spool/bacula		/sbin/nologin	bacula
++ricci	140	140	/var/lib/ricci		/sbin/nologin	ricci
++luci	141	141	/var/lib/luci		/sbin/nologin	luci
++stap-server	155	155	/var/lib/stap-server		/sbin/nologin	systemtap
++avahi-autoipd	170	170	/var/lib/avahi-autoipd		/sbin/nologin	avahi
++pulse	171	171	/var/run/pulse		/sbin/nologin	pulseaudio
++rtkit	172	172	/proc		/sbin/nologin	rtkit
+ gnats	?	?	?		?	gnats, gnats-db
+ listar	?	?	?		?	listar
+ nfsnobody	65534	65534	/var/lib/nfs		/sbin/nologin	nfs-utils

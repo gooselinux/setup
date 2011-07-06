@@ -1,0 +1,59 @@
+diff -urNp setup-2.8.14-orig/bashrc setup-2.8.14/bashrc
+--- setup-2.8.14-orig/bashrc	2010-01-12 14:28:22.000000000 +0100
++++ setup-2.8.14/bashrc	2010-05-24 13:06:08.622188995 +0200
+@@ -54,17 +54,20 @@ fi
+ 
+ if ! shopt -q login_shell ; then # We're not a login shell
+     # Need to redefine pathmunge, it get's undefined at the end of /etc/profile
+-    # Ok to use faster bashism here as /etc/bashrc is used only by bash
+     pathmunge () {
+-        if [[ ! "$PATH" =~ "(^|:)$1(:|$)" ]];then
+-            if [ "$2" = "after" ] ; then
+-                PATH=$PATH:$1
+-            else
+-                PATH=$1:$PATH
+-            fi
+-        fi
++        case ":${PATH}:" in
++            *:"$1":*)
++                ;;
++            *)
++                if [ "$2" = "after" ] ; then
++                    PATH=$PATH:$1
++                else
++                    PATH=$1:$PATH
++                fi
++        esac
+     }
+ 
++    
+     # Only display echos from profile.d scripts if we are no login shell
+     # and interactive - otherwise just process them to set envvars
+     for i in /etc/profile.d/*.sh; do
+diff -urNp setup-2.8.14-orig/profile setup-2.8.14/profile
+--- setup-2.8.14-orig/profile	2010-01-12 14:28:22.000000000 +0100
++++ setup-2.8.14/profile	2010-05-24 13:05:06.746438968 +0200
+@@ -9,13 +9,16 @@
+ # prevent need for merging in future updates.
+ 
+ pathmunge () {
+-    if ! echo $PATH | /bin/grep -qE "(^|:)$1($|:)" ; then
+-       if [ "$2" = "after" ] ; then
+-          PATH=$PATH:$1
+-       else
+-          PATH=$1:$PATH
+-       fi
+-    fi
++    case ":${PATH}:" in
++        *:"$1":*)
++            ;;
++        *)
++            if [ "$2" = "after" ] ; then
++                PATH=$PATH:$1
++            else
++                PATH=$1:$PATH
++            fi
++    esac
+ }
+ 
+ 
